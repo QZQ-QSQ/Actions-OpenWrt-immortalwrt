@@ -16,7 +16,13 @@
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-sed -i '$a src-git dockerman https://github.com/lisaac/luci-app-dockerman' feeds.conf.default
-sed -i '$a src-git libdocker https://github.com/lisaac/luci-lib-docker' feeds.conf.default
+###自定义插件###
+#sed -i '$a src-git dockerman https://github.com/lisaac/luci-app-dockerman' feeds.conf.default
+#sed -i '$a src-git libdocker https://github.com/lisaac/luci-lib-docker' feeds.conf.default
 sed -i '$a src-git OpenClash https://github.com/vernesong/OpenClash' feeds.conf.default
-sed -i '$a src-git dockerce https://github.com/docker/docker-ce' feeds.conf.default
+#sed -i '$a src-git dockerce https://github.com/docker/docker-ce' feeds.conf.default
+##### K2P-32M修改编译文件 ######
+sed -i 's/"Phicomm K2P";/"Phicomm K2P (32M)";/g' target/linux/ramips/dts/mt7621_phicomm_k2p.dts
+sed -i '/spi-max-frequency/a\\t\tbroken-flash-reset;' target/linux/ramips/dts/mt7621_phicomm_k2p.dts
+sed -i 's/<0xa0000 0xf60000>/<0xa0000 0x1fb0000>/g' target/linux/ramips/dts/mt7621_phicomm_k2p.dts
+sed -i 's/15744k/32448k/g' target/linux/ramips/image/mt7621.mk
